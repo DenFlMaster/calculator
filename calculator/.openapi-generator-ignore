@@ -1,0 +1,6 @@
+build/generated/sources/openapi/pom.xml
+build/generated/sources/openapi/README.md
+build/generated/sources/openapi/src/test/**
+build/generated/sources/openapi/src/main/java/org/**
+build/generated/sources/openapi/src/main/java/com/flmaster/calculator/invoker/OpenApiGeneratorApplication.java
+build/generated/sources/openapi/src/main/resources/**

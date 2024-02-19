@@ -1,0 +1,517 @@
+openapi: '3.0.2'
+info:
+  title: API backend калькулятор
+  version: '1.0'
+paths:
+  /admin/auth:
+    post:
+      operationId: admin.check.auth
+      security:
+        - admin: []
+      summary:  Проверить корректность вводимых данных авторизции
+      responses:
+        '200':
+          description: OK
+        default:
+          $ref: '#/components/responses/Error'
+  /admin/categories:
+    get:
+      operationId: admin.get.categories
+      security:
+        - admin: []
+      summary: Получить список разрядов
+      responses:
+        '200':
+          description:  OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+        default:
+          $ref: '#/components/responses/Error'
+    post:
+      operationId: admin.create.category
+      security:
+        - admin: []
+      summary: Создать разряд
+      responses:
+        '201':
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+        default:
+          $ref: '#/components/responses/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Category'
+  /admin/categories/{category_id}:
+    put:
+      parameters:
+        - $ref: '#/components/parameters/category_id'
+      operationId: admin.update.category
+      security:
+        - admin: []
+      summary: изменить разряд
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+        default:
+          $ref: '#/components/responses/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Category'
+    delete:
+      operationId: admin.delete.category
+      parameters:
+        - $ref: '#/components/parameters/category_id'
+      security:
+        - admin: []
+      summary: удалить разряд
+      responses:
+        '200':
+          description: OK
+        default:
+          $ref: '#/components/responses/Error'
+  /admin/element_types:
+    get:
+      operationId: admin.get.element_types
+      security:
+        - admin: []
+      summary: Получение списка типов элементов
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ElementType'
+        default:
+          $ref: '#/components/responses/Error'
+    post:
+      operationId: admin.create.element_type
+      security:
+        - admin: []
+      summary: создание типа элемента
+      responses:
+        '201':
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ElementType'
+        default:
+          $ref: '#/components/responses/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ElementType'
+  /admin/element_types/{element_type_id}:
+    put:
+      parameters:
+        - $ref: '#/components/parameters/element_type_id'
+      operationId: admin.update.elementType
+      security:
+        - admin: []
+      summary: изменить тип элемента
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ElementType'
+        default:
+          $ref: '#/components/responses/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ElementType'
+    delete:
+      operationId: admin.delete.elementType
+      parameters:
+        - $ref: '#/components/parameters/element_type_id'
+      security:
+        - admin: []
+      summary: удалить тип элемента
+      responses:
+        '200':
+          description: OK
+        default:
+          $ref: '#/components/responses/Error'
+  /admin/elements:
+    get:
+      operationId: admin.get.elements
+      security:
+        - admin: []
+      summary: Получить список элементов
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Element'
+        default:
+          $ref: '#/components/responses/Error'
+    post:
+      operationId: admin.create.element
+      security:
+        - admin: []
+      summary: создание элемента
+      responses:
+        '201':
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Element'
+        default:
+          $ref: '#/components/responses/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Element'
+  /admin/elements/{element_id}:
+    put:
+      parameters:
+        - $ref: '#/components/parameters/element_id'
+      operationId: admin.update.element
+      security:
+        - admin: []
+      summary: изменить элемент
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Element'
+        default:
+          $ref: '#/components/responses/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Element'
+    delete:
+      operationId: admin.delete.element
+      parameters:
+        - $ref: '#/components/parameters/element_id'
+      security:
+        - admin: []
+      summary: удалить элемент
+      responses:
+        '200':
+          description: OK
+        default:
+          $ref: '#/components/responses/Error'
+  /admin/exercises:
+    get:
+      operationId: admin.get.exercises
+      security:
+        - admin: []
+      summary: Получить список упражнений
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Exercise'
+        default:
+          $ref: '#/components/responses/Error'
+    post:
+      operationId: admin.create.exercise
+      security:
+        - admin: []
+      summary: создать упражнение
+      responses:
+        '201':
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exercise'
+        default:
+          $ref: '#/components/responses/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Exercise'
+  /admin/exercises/{exercise_id}:
+    put:
+      parameters:
+        - $ref: '#/components/parameters/exercise_id'
+      operationId: admin.update.exercise
+      security:
+        - admin: []
+      summary: изменить упражнение
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exercise'
+        default:
+          $ref: '#/components/responses/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Exercise'
+    delete:
+      operationId: admin.delete.exercise
+      parameters:
+        - $ref: '#/components/parameters/exercise_id'
+      security:
+        - admin: []
+      summary: удалить упражнение
+      responses:
+        '200':
+          description: OK
+        default:
+          $ref: '#/components/responses/Error'
+  /admin/categories/{category_id}/exercises/{exercise_id}:
+    put:
+      operationId: admin.set.exercise_requirement
+      summary: установить требование к упражнению категории
+      security:
+        - admin: []
+      parameters:
+        - $ref: '#/components/parameters/category_id'
+        - $ref: '#/components/parameters/exercise_id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoryExerciseRequirement'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryExerciseRequirement'
+        default:
+          $ref: '#/components/responses/Error'
+    delete:
+      operationId: admin.delete.exercise_requirement
+      summary: удалить требование к упражнению категории
+      responses:
+        '200':
+          description: OK
+        default:
+          $ref: '#/components/responses/Error'
+
+      security:
+        - admin: []
+      parameters:
+        - $ref: '#/components/parameters/category_id'
+        - $ref: '#/components/parameters/exercise_id'
+  /content:
+    get:
+      operationId: get.content
+      summary: получить все данные с базы данных
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Content'
+        default:
+          $ref: '#/components/responses/Error'
+components:
+  securitySchemes:
+    admin:
+      type: http
+      scheme: basic
+  responses:
+    Error:
+      description: Ошибка
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    category_id:
+      name: category_id
+      in: path
+      required: true
+      schema:
+        type: integer
+    exercise_id:
+      name: exercise_id
+      in: path
+      required: true
+      schema:
+        type: integer
+    element_id:
+      name: element_id
+      in: path
+      required: true
+      schema:
+        type: integer
+    element_type_id:
+      name: element_type_id
+      in: path
+      required: true
+      schema:
+        type: integer
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        name:
+          type: string
+        message:
+          type: string
+      required:
+        - name
+        - message
+    CategoryRequirements:
+      type: object
+      properties:
+        min_combo:
+          type: integer
+        min_elements_of_same_level:
+          type: integer
+        min_female_score:
+          type: integer
+        min_male_score:
+          type: integer
+      required:
+        - min_combo
+        - min_elements_of_same_level
+        - min_female_score
+        - min_male_score
+    Category:
+      type: object
+      properties:
+        id:
+          readOnly: true
+          type: integer
+        name:
+          type: string
+        level:
+          type: integer
+        requirements:
+          $ref: '#/components/schemas/CategoryRequirements'
+        exercise_requirements:
+          readOnly: true
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoryExerciseRequirement'
+      required:
+        - id
+        - name
+        - level
+        - requirements
+        - exercise_requirements
+    ElementType:
+      type: object
+      properties:
+        id:
+          readOnly: true
+          type: integer
+        name:
+          type: string
+      required:
+        - id
+        - name
+    Element:
+      type: object
+      properties:
+        id:
+          readOnly: true
+          type: integer
+        name:
+          type: string
+        level:
+          type: integer
+        score:
+          type: integer
+        type:
+          allOf:
+            - $ref: '#/components/schemas/ElementType'
+            - readOnly: true
+        type_id:
+          type: integer
+          writeOnly: true
+      required:
+        - id
+        - name
+        - level
+        - score
+        - type
+        - type_id
+    Exercise:
+      type: object
+      properties:
+        id:
+          readOnly: true
+          type: integer
+        name:
+          type: string
+      required:
+        - id
+        - name
+    CategoryExerciseRequirement:
+      type: object
+      properties:
+        exercise:
+          allOf:
+            - $ref: '#/components/schemas/Exercise'
+            - readOnly: true
+        count:
+          type: integer
+      required:
+        - count
+        - exercise
+    Content:
+      required:
+        - categories
+        - element_types
+        - elements
+        - exercises
+      type: object
+      properties:
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
+        element_types:
+          type: array
+          items:
+            $ref: '#/components/schemas/ElementType'
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Element'
+        exercises:
+          type: array
+          items:
+            $ref: '#/components/schemas/Exercise'

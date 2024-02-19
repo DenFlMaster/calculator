@@ -1,0 +1,72 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.1'
+    id 'io.spring.dependency-management' version '1.1.4'
+    id "org.openapi.generator" version "7.2.0"
+}
+
+group = 'com.flmaster'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+
+    implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
+    implementation 'org.openapitools:jackson-databind-nullable:0.2.6'
+
+
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.liquibase:liquibase-core'
+    implementation group: 'org.xerial', name: 'sqlite-jdbc', version: '3.45.1.0'
+}
+
+openApiGenerate {
+    generatorName.set("spring")
+    inputSpec.set("$rootDir/src/main/resources/openapi.yaml")
+    outputDir.set("$rootDir/build/generated/sources/openapi")
+    apiPackage.set("com.flmaster.calculator.api")
+    invokerPackage.set("com.flmaster.calculator.invoker")
+    modelPackage.set("com.flmaster.calculator.model")
+    ignoreFileOverride.set("$rootDir/.openapi-generator-ignore")
+    configOptions.set([
+            generateApiTests: "false",
+            generateModelTests: "false",
+            library              : "spring-boot",
+            useSpringBoot3       : "true",
+            dateLibrary          : "java8",
+            delegatePattern      : "true",
+            interfaceOnly        : "false",
+            documentationProvider: "none"
+    ])
+}
+
+springBoot {
+    mainClass = 'com.flmaster.calculator.CalculatorApplication'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs "$rootDir/build/generated/sources/openapi/src/main/java"
+        }
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    dependsOn(tasks.openApiGenerate)
+}

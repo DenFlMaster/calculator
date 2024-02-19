@@ -1,0 +1,10 @@
+server:
+  port: 8080
+
+spring.jackson.date-format: com.flmaster.calculator.invoker.RFC3339DateFormat
+spring.jackson.serialization.WRITE_DATES_AS_TIMESTAMPS: false
+
+settings:
+  admin:
+    login: admin
+    password: $2a$12$pxR78mX8gbd4sq9QQzbVR.NJ5RVGQBpvd.IemGfyy3F.lc8wK8.im
