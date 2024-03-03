@@ -3,12 +3,15 @@ package com.flmaster.calculator.service;
 import com.flmaster.calculator.exception.BusinessException;
 import com.flmaster.calculator.exception.BusinessExceptionCode;
 import com.flmaster.calculator.mapper.CategoryMapper;
-import com.flmaster.calculator.model.Category;
+import com.flmaster.calculator.model.CategoryRequest;
+import com.flmaster.calculator.model.CategoryResponse;
 import com.flmaster.calculator.repo.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Component
@@ -23,8 +26,8 @@ public class CategoryService {
             throw new BusinessException(BusinessExceptionCode.CATEGORY_NAME_ALREADY_TAKEN);
     }
 
-    private void validateRequest(Category request) {
-        if (!(request.getName().length() > 0
+    private void validateRequest(CategoryRequest request) {
+        if (!(StringUtils.hasText(request.getName())
                 && request.getLevel() >= 0
                 && request.getRequirements().getMinCombo() > 0
                 && request.getRequirements().getMinElementsOfSameLevel() > 0
@@ -34,28 +37,30 @@ public class CategoryService {
         }
     }
 
-    public List<Category> findCategories() {
+    public List<CategoryResponse> findCategories() {
         return repo.findCategories().stream().map(mapper::convert).toList();
     }
 
-    public Optional<Category> findCategory(long id) {
+    public Optional<CategoryResponse> findCategory(long id) {
         return repo.findCategory(id).map(mapper::convert);
     }
 
-    public Category updateCategory(long id, Category request) {
+    public CategoryResponse updateCategory(long id, CategoryRequest request) {
         validateRequest(request);
-        findCategory(id).orElseThrow(() -> new BusinessException(BusinessExceptionCode.CATEGORY_NOT_FOUND));
-        checkCategoryName(request.getName());
+        var category = findCategory(id).orElseThrow(() -> new BusinessException(BusinessExceptionCode.CATEGORY_NOT_FOUND));
+        if(!Objects.equals(category.getName(), request.getName())){
+            checkCategoryName(request.getName());
+        }
         return mapper.convert(repo.updateCategory(id, request));
     }
 
-    public Category insertCategory(Category request) {
+    public CategoryResponse insertCategory(CategoryRequest request) {
         validateRequest(request);
         checkCategoryName(request.getName());
         return mapper.convert(repo.insertCategory(request));
     }
 
-    public void deleteCategory(long id) {
+    public void deleteCategory(Integer id) {
         findCategory(id).orElseThrow(() -> new BusinessException(BusinessExceptionCode.CATEGORY_NOT_FOUND));
         repo.deleteCategory(id);
     }

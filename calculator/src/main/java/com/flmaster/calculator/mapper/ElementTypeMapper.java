@@ -1,10 +1,10 @@
 package com.flmaster.calculator.mapper;
 
-import com.flmaster.calculator.model.ElementType;
 import com.flmaster.calculator.model.ElementTypeModel;
+import com.flmaster.calculator.model.ElementTypeResponse;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface ElementTypeMapper {
-    ElementType convert(ElementTypeModel model);
+    ElementTypeResponse convert(ElementTypeModel model);
 }

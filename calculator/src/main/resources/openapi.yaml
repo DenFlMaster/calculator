@@ -7,8 +7,8 @@ paths:
     post:
       operationId: admin.check.auth
       security:
-        - admin: []
-      summary:  Проверить корректность вводимых данных авторизции
+        - admin: [ ]
+      summary: Проверить корректность вводимых данных авторизции
       responses:
         '200':
           description: OK
@@ -18,23 +18,23 @@ paths:
     get:
       operationId: admin.get.categories
       security:
-        - admin: []
+        - admin: [ ]
       summary: Получить список разрядов
       responses:
         '200':
-          description:  OK
+          description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Category'
+                  $ref: '#/components/schemas/CategoryResponse'
         default:
           $ref: '#/components/responses/Error'
     post:
       operationId: admin.create.category
       security:
-        - admin: []
+        - admin: [ ]
       summary: Создать разряд
       responses:
         '201':
@@ -42,21 +42,22 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Category'
+                $ref: '#/components/schemas/CategoryResponse'
         default:
           $ref: '#/components/responses/Error'
       requestBody:
+        required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Category'
+              $ref: '#/components/schemas/CategoryRequest'
   /admin/categories/{category_id}:
     put:
       parameters:
         - $ref: '#/components/parameters/category_id'
       operationId: admin.update.category
       security:
-        - admin: []
+        - admin: [ ]
       summary: изменить разряд
       responses:
         '200':
@@ -64,20 +65,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Category'
+                $ref: '#/components/schemas/CategoryResponse'
         default:
           $ref: '#/components/responses/Error'
       requestBody:
+        required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Category'
+              $ref: '#/components/schemas/CategoryRequest'
     delete:
       operationId: admin.delete.category
       parameters:
         - $ref: '#/components/parameters/category_id'
       security:
-        - admin: []
+        - admin: [ ]
       summary: удалить разряд
       responses:
         '200':
@@ -88,7 +90,7 @@ paths:
     get:
       operationId: admin.get.element_types
       security:
-        - admin: []
+        - admin: [ ]
       summary: Получение списка типов элементов
       responses:
         '200':
@@ -98,13 +100,13 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/ElementType'
+                  $ref: '#/components/schemas/ElementTypeResponse'
         default:
           $ref: '#/components/responses/Error'
     post:
       operationId: admin.create.element_type
       security:
-        - admin: []
+        - admin: [ ]
       summary: создание типа элемента
       responses:
         '201':
@@ -112,21 +114,22 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ElementType'
+                $ref: '#/components/schemas/ElementTypeResponse'
         default:
           $ref: '#/components/responses/Error'
       requestBody:
+        required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ElementType'
+              $ref: '#/components/schemas/ElementTypeRequest'
   /admin/element_types/{element_type_id}:
     put:
       parameters:
         - $ref: '#/components/parameters/element_type_id'
       operationId: admin.update.elementType
       security:
-        - admin: []
+        - admin: [ ]
       summary: изменить тип элемента
       responses:
         '200':
@@ -134,20 +137,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ElementType'
+                $ref: '#/components/schemas/ElementTypeResponse'
         default:
           $ref: '#/components/responses/Error'
       requestBody:
+        required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ElementType'
+              $ref: '#/components/schemas/ElementTypeRequest'
     delete:
       operationId: admin.delete.elementType
       parameters:
         - $ref: '#/components/parameters/element_type_id'
       security:
-        - admin: []
+        - admin: [ ]
       summary: удалить тип элемента
       responses:
         '200':
@@ -158,7 +162,7 @@ paths:
     get:
       operationId: admin.get.elements
       security:
-        - admin: []
+        - admin: [ ]
       summary: Получить список элементов
       responses:
         '200':
@@ -168,13 +172,13 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Element'
+                  $ref: '#/components/schemas/ElementResponse'
         default:
           $ref: '#/components/responses/Error'
     post:
       operationId: admin.create.element
       security:
-        - admin: []
+        - admin: [ ]
       summary: создание элемента
       responses:
         '201':
@@ -182,21 +186,22 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Element'
+                $ref: '#/components/schemas/ElementResponse'
         default:
           $ref: '#/components/responses/Error'
       requestBody:
+        required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Element'
+              $ref: '#/components/schemas/ElementRequest'
   /admin/elements/{element_id}:
     put:
       parameters:
         - $ref: '#/components/parameters/element_id'
       operationId: admin.update.element
       security:
-        - admin: []
+        - admin: [ ]
       summary: изменить элемент
       responses:
         '200':
@@ -204,20 +209,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Element'
+                $ref: '#/components/schemas/ElementResponse'
         default:
           $ref: '#/components/responses/Error'
       requestBody:
+        required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Element'
+              $ref: '#/components/schemas/ElementRequest'
     delete:
       operationId: admin.delete.element
       parameters:
         - $ref: '#/components/parameters/element_id'
       security:
-        - admin: []
+        - admin: [ ]
       summary: удалить элемент
       responses:
         '200':
@@ -228,7 +234,7 @@ paths:
     get:
       operationId: admin.get.exercises
       security:
-        - admin: []
+        - admin: [ ]
       summary: Получить список упражнений
       responses:
         '200':
@@ -238,7 +244,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Exercise'
+                  $ref: '#/components/schemas/ExerciseResponse'
         default:
           $ref: '#/components/responses/Error'
     post:
@@ -252,21 +258,22 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Exercise'
+                $ref: '#/components/schemas/ExerciseResponse'
         default:
           $ref: '#/components/responses/Error'
       requestBody:
+        required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Exercise'
+              $ref: '#/components/schemas/ExerciseRequest'
   /admin/exercises/{exercise_id}:
     put:
       parameters:
         - $ref: '#/components/parameters/exercise_id'
       operationId: admin.update.exercise
       security:
-        - admin: []
+        - admin: [ ]
       summary: изменить упражнение
       responses:
         '200':
@@ -274,20 +281,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Exercise'
+                $ref: '#/components/schemas/ExerciseResponse'
         default:
           $ref: '#/components/responses/Error'
       requestBody:
+        required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Exercise'
+              $ref: '#/components/schemas/ExerciseRequest'
     delete:
       operationId: admin.delete.exercise
       parameters:
         - $ref: '#/components/parameters/exercise_id'
       security:
-        - admin: []
+        - admin: [ ]
       summary: удалить упражнение
       responses:
         '200':
@@ -299,22 +307,23 @@ paths:
       operationId: admin.set.exercise_requirement
       summary: установить требование к упражнению категории
       security:
-        - admin: []
+        - admin: [ ]
       parameters:
         - $ref: '#/components/parameters/category_id'
         - $ref: '#/components/parameters/exercise_id'
       requestBody:
+        required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CategoryExerciseRequirement'
+              $ref: '#/components/schemas/CategoryExerciseRequirementRequest'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CategoryExerciseRequirement'
+                $ref: '#/components/schemas/CategoryExerciseRequirementResponse'
         default:
           $ref: '#/components/responses/Error'
     delete:
@@ -327,7 +336,7 @@ paths:
           $ref: '#/components/responses/Error'
 
       security:
-        - admin: []
+        - admin: [ ]
       parameters:
         - $ref: '#/components/parameters/category_id'
         - $ref: '#/components/parameters/exercise_id'
@@ -408,89 +417,129 @@ components:
         - min_elements_of_same_level
         - min_female_score
         - min_male_score
-    Category:
+    BaseCategory:
       type: object
       properties:
-        id:
-          readOnly: true
-          type: integer
         name:
           type: string
         level:
           type: integer
         requirements:
           $ref: '#/components/schemas/CategoryRequirements'
-        exercise_requirements:
-          readOnly: true
-          type: array
-          items:
-            $ref: '#/components/schemas/CategoryExerciseRequirement'
       required:
-        - id
         - name
         - level
         - requirements
-        - exercise_requirements
-    ElementType:
+    CategoryRequest:
+      allOf:
+        - $ref: '#/components/schemas/BaseCategory'
+    CategoryResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseCategory'
+        - type: object
+          properties:
+            id:
+              type: integer
+            exercise_requirements:
+              type: array
+              items:
+                $ref: '#/components/schemas/CategoryExerciseRequirementResponse'
+          required:
+            - id
+            - exercise_requirements
+    BaseElementType:
       type: object
       properties:
-        id:
-          readOnly: true
-          type: integer
         name:
           type: string
       required:
-        - id
         - name
-    Element:
+    ElementTypeRequest:
+      allOf:
+        - $ref: '#/components/schemas/BaseElementType'
+    ElementTypeResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseElementType'
+        - type: object
+          properties:
+            id:
+              type: integer
+          required:
+            - id
+    BaseElement:
       type: object
       properties:
-        id:
-          readOnly: true
-          type: integer
         name:
           type: string
         level:
           type: integer
         score:
           type: integer
-        type:
-          allOf:
-            - $ref: '#/components/schemas/ElementType'
-            - readOnly: true
-        type_id:
-          type: integer
-          writeOnly: true
       required:
-        - id
         - name
         - level
         - score
-        - type
-        - type_id
-    Exercise:
+    ElementRequest:
+      allOf:
+        - $ref: '#/components/schemas/BaseElement'
+        - type: object
+          properties:
+            type_id:
+              type: integer
+          required:
+            - type_id
+    ElementResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseElement'
+        - type: object
+          properties:
+            id:
+              type: integer
+            type:
+              $ref: '#/components/schemas/ElementTypeResponse'
+          required:
+            - id
+            - type
+    BaseExercise:
       type: object
       properties:
-        id:
-          readOnly: true
-          type: integer
         name:
           type: string
       required:
-        - id
         - name
-    CategoryExerciseRequirement:
+    ExerciseRequest:
+      allOf:
+        - $ref: '#/components/schemas/BaseExercise'
+    ExerciseResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseExercise'
+        - type: object
+          properties:
+            id:
+              type: number
+          required:
+            - id
+    BaseCategoryExerciseRequirement:
       type: object
       properties:
-        exercise:
-          allOf:
-            - $ref: '#/components/schemas/Exercise'
-            - readOnly: true
         count:
           type: integer
       required:
         - count
-        - exercise
+    CategoryExerciseRequirementRequest:
+      allOf:
+        - $ref: '#/components/schemas/BaseCategoryExerciseRequirement'
+    CategoryExerciseRequirementResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseCategoryExerciseRequirement'
+        - type: object
+          properties:
+            exercise:
+              allOf:
+                - $ref: '#/components/schemas/ExerciseResponse'
+                - readOnly: true
+          required:
+            - exercise
     Content:
       required:
         - categories
@@ -502,16 +551,16 @@ components:
         categories:
           type: array
           items:
-            $ref: '#/components/schemas/Category'
+            $ref: '#/components/schemas/CategoryResponse'
         element_types:
           type: array
           items:
-            $ref: '#/components/schemas/ElementType'
+            $ref: '#/components/schemas/ElementTypeResponse'
         elements:
           type: array
           items:
-            $ref: '#/components/schemas/Element'
+            $ref: '#/components/schemas/ElementResponse'
         exercises:
           type: array
           items:
-            $ref: '#/components/schemas/Exercise'
+            $ref: '#/components/schemas/ExerciseResponse'

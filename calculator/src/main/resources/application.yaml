@@ -7,4 +7,4 @@ spring.jackson.serialization.WRITE_DATES_AS_TIMESTAMPS: false
 settings:
   admin:
     login: admin
-    password: $2a$12$pxR78mX8gbd4sq9QQzbVR.NJ5RVGQBpvd.IemGfyy3F.lc8wK8.im
+    password: $2a$08$G3bpuMAXGrqRqKwOiOpxj.Uc4h2xpCr/31/lvP4eKuUg0KKGzH456

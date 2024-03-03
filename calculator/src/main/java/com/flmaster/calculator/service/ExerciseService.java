@@ -3,12 +3,15 @@ package com.flmaster.calculator.service;
 import com.flmaster.calculator.exception.BusinessException;
 import com.flmaster.calculator.exception.BusinessExceptionCode;
 import com.flmaster.calculator.mapper.ExerciseMapper;
-import com.flmaster.calculator.model.Exercise;
+import com.flmaster.calculator.model.ExerciseRequest;
+import com.flmaster.calculator.model.ExerciseResponse;
 import com.flmaster.calculator.repo.ExerciseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Component
@@ -17,16 +20,16 @@ public class ExerciseService {
     private final ExerciseRepository repo;
     private final ExerciseMapper mapper;
 
-    public List<Exercise> findExercises() {
+    public List<ExerciseResponse> findExercises() {
         return repo.findExercises().stream().map(mapper::convert).toList();
     }
 
-    public Optional<Exercise> findExercise(long id) {
+    public Optional<ExerciseResponse> findExercise(long id) {
         return repo.findExercise(id).map(mapper::convert);
     }
 
-    private void validateRequest(Exercise request){
-        if (!(request.getName().length() > 0)){
+    private void validateRequest(ExerciseRequest request){
+        if (!(StringUtils.hasText(request.getName()))){
             throw new BusinessException(BusinessExceptionCode.VALIDATION_ERROR);
         }
     }
@@ -36,20 +39,22 @@ public class ExerciseService {
             throw new BusinessException(BusinessExceptionCode.EXERCISE_NAME_ALREADY_TAKEN);
     }
 
-    public Exercise updateExercise(long id, Exercise request) {
+    public ExerciseResponse updateExercise(long id, ExerciseRequest request) {
         validateRequest(request);
-        findExercise(id).orElseThrow(() -> new BusinessException(BusinessExceptionCode.EXERCISE_NOT_FOUND));
-        checkExerciseName(request.getName());
+        var exercise = findExercise(id).orElseThrow(() -> new BusinessException(BusinessExceptionCode.EXERCISE_NOT_FOUND));
+        if(!Objects.equals(exercise.getName(), request.getName())){
+            checkExerciseName(request.getName());
+        }
         return mapper.convert(repo.updateExercise(id, request));
     }
 
-    public Exercise insertExercise(Exercise request) {
+    public ExerciseResponse insertExercise(ExerciseRequest request) {
         validateRequest(request);
         checkExerciseName(request.getName());
         return mapper.convert(repo.insertExercise(request));
     }
 
-    public void deleteExercise(long id) {
+    public void deleteExercise(Integer id) {
         findExercise(id).orElseThrow(() -> new BusinessException(BusinessExceptionCode.EXERCISE_NOT_FOUND));
         repo.deleteExercise(id);
     }

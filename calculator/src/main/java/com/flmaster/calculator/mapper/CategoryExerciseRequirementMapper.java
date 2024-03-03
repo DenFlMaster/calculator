@@ -1,7 +1,7 @@
 package com.flmaster.calculator.mapper;
 
-import com.flmaster.calculator.model.CategoryExerciseRequirement;
 import com.flmaster.calculator.model.CategoryExerciseRequirementModel;
+import com.flmaster.calculator.model.CategoryExerciseRequirementResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -9,5 +9,5 @@ import org.mapstruct.Mapping;
 public interface CategoryExerciseRequirementMapper {
     @Mapping(source = "model.exerciseId", target = "exercise.id")
     @Mapping(source = "model.exerciseName", target = "exercise.name")
-    CategoryExerciseRequirement convert(CategoryExerciseRequirementModel model);
+    CategoryExerciseRequirementResponse convert(CategoryExerciseRequirementModel model);
 }

@@ -5,5 +5,5 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring", uses = CategoryExerciseRequirementMapper.class)
 public interface CategoryMapper {
-    Category convert(CategoryModel model);
+    CategoryResponse convert(CategoryModel model);
 }

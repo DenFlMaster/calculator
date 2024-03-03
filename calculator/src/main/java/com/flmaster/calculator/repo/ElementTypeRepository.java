@@ -1,8 +1,8 @@
 package com.flmaster.calculator.repo;
 
 
-import com.flmaster.calculator.model.ElementType;
 import com.flmaster.calculator.model.ElementTypeModel;
+import com.flmaster.calculator.model.ElementTypeRequest;
 import com.flmaster.calculator.rowmapper.ElementTypeRowMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.support.DataAccessUtils;
@@ -46,7 +46,7 @@ public class ElementTypeRepository {
         return Optional.ofNullable(DataAccessUtils.singleResult(result));
     }
 
-    public ElementTypeModel updateElementType(long id, ElementType request) {
+    public ElementTypeModel updateElementType(long id, ElementTypeRequest request) {
         template.update("""
                 UPDATE element_type
                 SET name = :name
@@ -55,7 +55,7 @@ public class ElementTypeRepository {
         return findElementType(id).get();
     }
 
-    public ElementTypeModel insertElementType(ElementType request) {
+    public ElementTypeModel insertElementType(ElementTypeRequest request) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         template.update("""
                         INSERT INTO element_type (name)

@@ -1,7 +1,7 @@
 package com.flmaster.calculator.repo;
 
-import com.flmaster.calculator.model.Element;
 import com.flmaster.calculator.model.ElementModel;
+import com.flmaster.calculator.model.ElementRequest;
 import com.flmaster.calculator.rowmapper.ElementRowMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.support.DataAccessUtils;
@@ -66,7 +66,7 @@ public class ElementRepository {
         return Optional.ofNullable(DataAccessUtils.singleResult(result));
     }
 
-    public ElementModel updateElement(long id, Element request) {
+    public ElementModel updateElement(long id, ElementRequest request) {
         template.update("""
                 UPDATE element
                 SET name = :name,
@@ -84,7 +84,7 @@ public class ElementRepository {
         return findElement(id).get();
     }
 
-    public ElementModel insertElement(Element request) {
+    public ElementModel insertElement(ElementRequest request) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         template.update(
                 """

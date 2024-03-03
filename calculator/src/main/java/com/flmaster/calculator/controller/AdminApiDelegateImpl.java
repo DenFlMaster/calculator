@@ -21,7 +21,7 @@ public class AdminApiDelegateImpl implements AdminApiDelegate {
     private final CategoryExerciseRequirementService categoryExerciseRequirementService;
 
     @Override
-    public ResponseEntity<Category> adminCreateCategory(Category category) {
+    public ResponseEntity<CategoryResponse> adminCreateCategory(CategoryRequest category) {
         var result = categoryService.insertCategory(category);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -29,17 +29,17 @@ public class AdminApiDelegateImpl implements AdminApiDelegate {
     }
 
     @Override
-    public ResponseEntity<Category> adminUpdateCategory(Integer categoryId, Category category) {
+    public ResponseEntity<CategoryResponse> adminUpdateCategory(Integer categoryId, CategoryRequest category) {
         var result = categoryService.updateCategory(categoryId, category);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(result);
     }
     @Override
-    public ResponseEntity<CategoryExerciseRequirement> adminSetExerciseRequirement(
+    public ResponseEntity<CategoryExerciseRequirementResponse> adminSetExerciseRequirement(
             Integer categoryId,
             Integer exerciseId,
-            CategoryExerciseRequirement categoryExerciseRequirement
+            CategoryExerciseRequirementRequest categoryExerciseRequirement
     ) {
 
         //pipa popa
@@ -53,7 +53,7 @@ public class AdminApiDelegateImpl implements AdminApiDelegate {
     }
 
     @Override
-    public ResponseEntity<Element> adminUpdateElement(Integer exerciseId, Element element) {
+    public ResponseEntity<ElementResponse> adminUpdateElement(Integer exerciseId, ElementRequest element) {
         var result = elementService.updateElement(exerciseId, element);
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -61,7 +61,7 @@ public class AdminApiDelegateImpl implements AdminApiDelegate {
     }
 
     @Override
-    public ResponseEntity<ElementType> adminCreateElementType(ElementType elementType) {
+    public ResponseEntity<ElementTypeResponse> adminCreateElementType(ElementTypeRequest elementType) {
         var result = elementTypeService.insertElementType(elementType);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -69,7 +69,7 @@ public class AdminApiDelegateImpl implements AdminApiDelegate {
     }
 
     @Override
-    public ResponseEntity<ElementType> adminUpdateElementType(Integer elementTypeId, ElementType elementType) {
+    public ResponseEntity<ElementTypeResponse> adminUpdateElementType(Integer elementTypeId, ElementTypeRequest elementType) {
         var result = elementTypeService.updateElementType(elementTypeId, elementType);
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -77,7 +77,7 @@ public class AdminApiDelegateImpl implements AdminApiDelegate {
     }
 
     @Override
-    public ResponseEntity<Exercise> adminUpdateExercise(Integer exerciseId, Exercise exercise) {
+    public ResponseEntity<ExerciseResponse> adminUpdateExercise(Integer exerciseId, ExerciseRequest exercise) {
         var result = exerciseService.updateExercise(exerciseId, exercise);
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -85,7 +85,7 @@ public class AdminApiDelegateImpl implements AdminApiDelegate {
     }
 
     @Override
-    public ResponseEntity<List<Category>> adminGetCategories() {
+    public ResponseEntity<List<CategoryResponse>> adminGetCategories() {
         var result = categoryService.findCategories();
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -93,7 +93,7 @@ public class AdminApiDelegateImpl implements AdminApiDelegate {
     }
 
     @Override
-    public ResponseEntity<List<Element>> adminGetElements() {
+    public ResponseEntity<List<ElementResponse>> adminGetElements() {
         var result = elementService.findElements();
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -101,7 +101,7 @@ public class AdminApiDelegateImpl implements AdminApiDelegate {
     }
 
     @Override
-    public ResponseEntity<List<ElementType>> adminGetElementTypes() {
+    public ResponseEntity<List<ElementTypeResponse>> adminGetElementTypes() {
         var result = elementTypeService.findElementTypes();
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -109,7 +109,7 @@ public class AdminApiDelegateImpl implements AdminApiDelegate {
     }
 
     @Override
-    public ResponseEntity<List<Exercise>> adminGetExercises() {
+    public ResponseEntity<List<ExerciseResponse>> adminGetExercises() {
         var result = exerciseService.findExercises();
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -164,7 +164,7 @@ public class AdminApiDelegateImpl implements AdminApiDelegate {
     }
 
     @Override
-    public ResponseEntity<Element> adminCreateElement(Element element) {
+    public ResponseEntity<ElementResponse> adminCreateElement(ElementRequest element) {
         var result = elementService.insertElement(element);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -172,7 +172,7 @@ public class AdminApiDelegateImpl implements AdminApiDelegate {
     }
 
     @Override
-    public ResponseEntity<Exercise> adminCreateExercise(Exercise exercise) {
+    public ResponseEntity<ExerciseResponse> adminCreateExercise(ExerciseRequest exercise) {
         var result = exerciseService.insertExercise(exercise);
         return ResponseEntity
                 .status(HttpStatus.CREATED)

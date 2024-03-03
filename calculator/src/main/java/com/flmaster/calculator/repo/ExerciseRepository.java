@@ -1,7 +1,7 @@
 package com.flmaster.calculator.repo;
 
-import com.flmaster.calculator.model.Exercise;
 import com.flmaster.calculator.model.ExerciseModel;
+import com.flmaster.calculator.model.ExerciseRequest;
 import com.flmaster.calculator.rowmapper.ExerciseRowMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.support.DataAccessUtils;
@@ -20,6 +20,7 @@ import java.util.Optional;
 public class ExerciseRepository {
     private final ExerciseRowMapper exerciseRowMapper;
     private final NamedParameterJdbcTemplate template;
+    private final CategoryExerciseRequirementRepository requirementRepo;
 
     public List<ExerciseModel> findExercises() {
         return template.query("""
@@ -45,7 +46,7 @@ public class ExerciseRepository {
         return Optional.ofNullable(DataAccessUtils.singleResult(result));
     }
 
-    public ExerciseModel updateExercise(long id, Exercise request) {
+    public ExerciseModel updateExercise(long id, ExerciseRequest request) {
         template.update("""
                 UPDATE exercise
                 SET name = :name
@@ -54,7 +55,7 @@ public class ExerciseRepository {
         return findExercise(id).get();
     }
 
-    public ExerciseModel insertExercise(Exercise request) {
+    public ExerciseModel insertExercise(ExerciseRequest request) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         template.update("""
                         INSERT INTO exercise (name)
@@ -66,7 +67,8 @@ public class ExerciseRepository {
         return findExercise(keyHolder.getKey().longValue()).get();
     }
 
-    public void deleteExercise(long id) {
+    public void deleteExercise(Integer id) {
+        requirementRepo.deleteRequirementWithExercise(id);
         template.update("""
                 DELETE FROM exercise
                 WHERE id = :id

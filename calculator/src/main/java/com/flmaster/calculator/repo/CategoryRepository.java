@@ -1,7 +1,7 @@
 package com.flmaster.calculator.repo;
 
-import com.flmaster.calculator.model.Category;
 import com.flmaster.calculator.model.CategoryModel;
+import com.flmaster.calculator.model.CategoryRequest;
 import com.flmaster.calculator.rowmapper.CategoryRowMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.support.DataAccessUtils;
@@ -22,6 +22,7 @@ import static java.util.Collections.emptyMap;
 public class CategoryRepository {
     private final CategoryRowMapper categoryRowMapper;
     private final NamedParameterJdbcTemplate template;
+    private final CategoryExerciseRequirementRepository requirementRepo;
 
     public List<CategoryModel> findCategories() {
         var rowSet = template.queryForRowSet("""
@@ -88,7 +89,7 @@ public class CategoryRepository {
         return Optional.ofNullable(DataAccessUtils.singleResult(categoryRowMapper.mapRows(rowSet)));
     }
 
-    public CategoryModel updateCategory(long id, Category request) {
+    public CategoryModel updateCategory(long id, CategoryRequest request) {
         template.update("""
                 UPDATE category
                 SET name = :name,
@@ -110,7 +111,7 @@ public class CategoryRepository {
         return findCategory(id).get();
     }
 
-    public CategoryModel insertCategory(Category request) {
+    public CategoryModel insertCategory(CategoryRequest request) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         template.update(
                 """
@@ -144,12 +145,15 @@ public class CategoryRepository {
         return findCategory(keyHolder.getKey().longValue()).get();
     }
 
-    public void deleteCategory(long id) {
+    public void deleteCategory(Integer id) {
+        requirementRepo.deleteRequirementWithCategory(id);
         template.update("""
                         DELETE FROM category
                         WHERE id = :id
                         """,
                 Map.of("id", id));
+
+
     }
 
 }
